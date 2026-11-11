@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="svg/icon_app.svg">
+<title>Illuminator — логобук</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@200;300;400;600&family=Ysabeau+Office:ital,wght@0,300;0,400;0,600;1,300&display=swap">
+<style>
+/* Layout: a night-dark brand book. Each chapter = a numbered spread: a narrow caption column on the left,
+   the specimen on a large ink plate on the right; the hero is the logo alone with a faint flame glow. */
+:root {
+  color-scheme: dark;
+  --ink: #0B0710;          /* logo ground */
+  --ink-2: #130C19;        /* plates */
+  --ink-3: #1C1224;        /* raised plates */
+  --line: #2B1F35;
+  --fg: #F6ECE6;
+  --muted: #A8949F;
+  --rose: #F21C7C;         /* flame body */
+  --gold: #FBC662;
+  --cream: #FBEAA4;
+  --no: #FF5A6E;
+  --display: "Geologica", "Segoe UI", system-ui, sans-serif;
+  --body: "Ysabeau Office", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.55; margin: 0; }
+img { display: block; max-width: 100%; height: auto; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+/* hero */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero::before { content: ""; position: absolute; inset: -20% -10% auto; height: 120%; pointer-events: none;
+  background: radial-gradient(38% 46% at 50% 44%, rgba(242, 28, 124, .16), transparent 70%), radial-gradient(22% 30% at 50% 30%, rgba(232, 30, 224, .10), transparent 70%); }
+.hero .wrap { position: relative; padding-block: 34px 56px; display: grid; gap: 40px; }
+.top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font: 300 13px/1.2 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.hero .logo { width: min(1060px, 100%); margin: 2vh auto 0; animation: rise 1.2s cubic-bezier(.2, .7, .2, 1) both; }
+.hero h1 { font: 200 clamp(34px, 5.4vw, 72px)/1.02 var(--display); letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.hero h1 b { font-weight: 600; background: linear-gradient(90deg, #E81EE0, #F21C7C 35%, #F7603E 65%, #FBC662); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .lede { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: end; }
+.hero p { margin: 0; color: var(--muted); max-width: 52ch; }
+@keyframes rise { from { opacity: .001; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: none; } }
+
+nav.toc { border-bottom: 1px solid var(--line); }
+nav.toc ol { list-style: none; margin: 0; padding: 14px 0; display: flex; flex-wrap: wrap; gap: 6px 22px; font: 400 14px var(--display); }
+nav.toc a { color: var(--muted); text-decoration: none; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--fg); }
+nav.toc span { color: var(--rose); font-variant-numeric: tabular-nums; margin-right: 6px; }
+
+/* chapters */
+section.ch { border-bottom: 1px solid var(--line); }
+section.ch .wrap { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 48px; padding-block: 72px; }
+.cap .num { font: 300 13px var(--display); letter-spacing: .14em; color: var(--rose); font-variant-numeric: tabular-nums; }
+.cap h2 { font: 300 clamp(28px, 3.2vw, 40px)/1.08 var(--display); letter-spacing: -.01em; margin: 10px 0 16px; text-wrap: balance; }
+.cap h3 { font: 300 clamp(22px, 2.4vw, 30px)/1.1 var(--display); margin: 0 0 14px; }
+.cap p { margin: 0 0 12px; color: var(--muted); }
+.cap p strong { color: var(--fg); font-weight: 600; }
+.stage { display: grid; gap: 16px; min-width: 0; }
+.plate { background: var(--ink-2); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 56px); display: grid; place-items: center; min-width: 0; }
+.plate.deep { background: var(--ink); }
+.label { font: 400 12px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 14px; justify-self: start; }
+.row { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+/* parts */
+.stage.parts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.parts .plate.wide { grid-column: 1 / -1; }
+.parts .plate:not(.wide) img { height: clamp(140px, 24vw, 300px); width: auto; max-width: 100%; }
+.parts .plate.wide img { width: min(900px, 100%); }
+
+/* icon sizes */
+.sizes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 22px 28px; }
+.sizes figure { margin: 0; display: grid; justify-items: center; gap: 8px; }
+.sizes figcaption { font: 400 12px var(--display); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* palette */
+.pal { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.sw { background: var(--ink-2); border: 1px solid var(--line); border-radius: 16px; padding: 12px 12px 16px; display: grid; gap: 4px; }
+.sw .chip { height: 112px; border-radius: 10px; margin-bottom: 10px; border: 1px solid rgba(255, 255, 255, .06); }
+.sw b { font: 400 18px var(--display); }
+.sw code { font: 400 14px var(--display); color: var(--fg); letter-spacing: .04em; }
+.sw small { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.sw em { color: var(--muted); font-size: 13px; }
+.ramp { height: 56px; border-radius: 12px; background: linear-gradient(90deg, #E81EE0, #EC12B6, #F21C7C, #F5345A, #F7603E, #F99A48, #FBC662, #FBE48A, #FBEAA4); }
+
+/* mono + backgrounds */
+.tiles { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tile { border-radius: 18px; padding: clamp(22px, 4vw, 48px); display: grid; gap: 22px; align-content: center; justify-items: center; min-height: 280px; border: 1px solid var(--line); }
+.tile .lg { width: min(520px, 100%); }
+.tile .ic { width: 96px; }
+.tile .pair { display: flex; gap: 22px; align-items: center; justify-content: center; flex-wrap: wrap; width: 100%; }
+.t-ink { background: var(--ink); } .t-white { background: #FFFFFF; } .t-rose { background: #C0156A; } .t-violet { background: #1E1030; }
+.t-cream { background: #F6E7C4; } .t-black { background: #000000; }
+.tile .tl { font: 400 12px var(--display); letter-spacing: .12em; text-transform: uppercase; justify-self: start; }
+.t-white .tl, .t-cream .tl { color: #5B4A52; } .tile .tl { color: var(--muted); }
+
+/* min size */
+.mins { display: grid; gap: 16px; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+.mins .plate { place-items: start; gap: 14px; }
+.ruler { font: 400 13px var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+
+/* don'ts */
+.donts { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dn { background: var(--ink-2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: grid; grid-template-rows: 180px auto; }
+.dn .v { display: grid; place-items: center; background: var(--ink); padding: 18px; overflow: hidden; position: relative; }
+.dn .v img { width: 86%; }
+.dn p { margin: 0; padding: 14px 16px 16px; font-size: 15px; color: var(--muted); display: flex; gap: 10px; align-items: baseline; }
+.dn p::before { content: "✕"; color: var(--no); font-weight: 600; font-family: var(--display); }
+.x-stretch img { transform: scaleX(1.35) scaleY(.8); }
+.x-rotate img { transform: rotate(-14deg); }
+.x-hue img { filter: hue-rotate(150deg) saturate(1.3); }
+.x-white { background: #FFFFFF !important; }
+.x-shadow img { filter: drop-shadow(0 0 18px #FF2E9A) drop-shadow(0 10px 6px rgba(0,0,0,.9)); }
+.x-busy { background: repeating-linear-gradient(45deg, #F21C7C 0 18px, #FBC662 18px 36px, #3A1C64 36px 54px) !important; }
+
+/* files */
+.files { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.files li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.files code { font: 400 14px var(--display); color: var(--cream); overflow-wrap: anywhere; }
+.files span { color: var(--muted); }
+footer .wrap { padding-block: 40px 60px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: var(--muted); font: 300 13px var(--display); letter-spacing: .06em; }
+footer img { width: 160px; }
+
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+@media (max-width: 860px) {
+  section.ch .wrap { grid-template-columns: 1fr; gap: 24px; padding-block: 52px; }
+  .hero .lede { grid-template-columns: 1fr; gap: 18px; }
+  .tiles, .mins { grid-template-columns: 1fr; }
+  .donts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) { .donts { grid-template-columns: 1fr; } .files li { grid-template-columns: 1fr; gap: 4px; } }
+@media (prefers-reduced-motion: reduce) { .hero .logo { animation: none; } html { scroll-behavior: auto; } }
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="top"><span>Illuminator · фирменный знак</span><span>Логобук · версия 4 · ноябрь 2026</span></div>
+    <img class="logo motion" src="svg/logo_color_anim.svg" data-still="svg/logo_color.svg" alt="Логотип Illuminator: надпись illuminator, над буквой i пламя со звездой" width="3695" height="1254">
+    <div class="lede">
+      <h1>Пламя, <b>которое светит</b> изнутри буквы</h1>
+      <p>Знак студии — живое пламя из широких языков над буквой «i». В его чаше горит звезда; такая же звезда стоит над первой «i» на той же высоте. Здесь собраны версии знака и правила, по которым его ставят.</p>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Разделы"><div class="wrap"><ol>
+  <li><a href="#parts"><span>01</span>Состав</a></li><li><a href="#space"><span>02</span>Охранное поле</a></li>
+  <li><a href="#icon"><span>03</span>Иконка</a></li><li><a href="#color"><span>04</span>Цвет</a></li>
+  <li><a href="#mono"><span>05</span>Монохром</a></li><li><a href="#ground"><span>06</span>Фоны</a></li>
+  <li><a href="#min"><span>07</span>Размер</a></li><li><a href="#dont"><span>08</span>Ошибки</a></li><li><a href="#motion"><span>09</span>Анимация</a></li><li><a href="#files"><span>10</span>Файлы</a></li>
+</ol></div></nav>
+
+<section class="ch" id="parts"><div class="wrap">
+  <div class="cap"><div class="num">01</div><h2>Состав знака</h2>
+    <p><strong>Логотип</strong> — основная версия: надпись и пламя вместе. Ставится везде, где хватает ширины.</p>
+    <p><strong>Иконка</strong> — пламя в скруглённой рамке. Для приложений, аватаров, вкладок браузера.</p>
+    <p><strong>Знак</strong> — пламя со звездой без рамки и надписи. Для печатей, водяных знаков и фирменных деталей.</p></div>
+  <div class="stage parts row">
+    <div class="plate deep wide"><img src="svg/logo_color.svg" alt="Логотип" width="3695" height="1254"><div class="label">Логотип</div></div>
+    <div class="plate"><img src="svg/icon_color.svg" alt="Иконка" width="1125" height="1135"><div class="label">Иконка</div></div>
+    <div class="plate"><img src="svg/mark_color.svg" alt="Знак без надписи" width="503" height="786"><div class="label">Знак</div></div>
+  </div>
+</div></section>
+
+<section class="ch" id="space"><div class="wrap">
+  <div class="cap"><div class="num">02</div><h2>Охранное поле и построение</h2>
+    <p>Мера поля <strong>x</strong> — высота звезды. Вокруг логотипа остаётся свободной полоса не меньше x: в неё не заходят текст, края страницы и другие знаки.</p>
+    <p>Обе звезды стоят на одной высоте: их верх и низ лежат на одних линиях (бирюзовые). Это держит надпись и пламя в одном ритме — при любой перерисовке проверяйте именно их.</p></div>
+  <div class="stage"><div class="plate deep"><img src="svg/construction_clearspace.svg" alt="Схема охранного поля: вокруг логотипа рамка шириной в высоту звезды, линии верха и низа звёзд" width="1600" height="700"></div></div>
+</div></section>
+
+<section class="ch" id="icon"><div class="wrap">
+  <div class="cap"><div class="num">03</div><h2>Иконка</h2>
+    <p>Звезда стоит на вертикальной оси рамки. Пламя занимает центральную зону (пунктир), от него до рамки остаётся воздух не меньше высоты звезды. Рамка с градиентом от фуксии к янтарю повторяет цвет пламени.</p>
+    <p>Для магазинов приложений и экрана телефона есть версия на тёмной подложке — <strong>icon_app</strong>. Она читается и на 16 пикселях.</p></div>
+  <div class="stage">
+    <div class="row">
+      <div class="plate deep"><img src="svg/construction_icon.svg" alt="Сетка иконки: оси через звезду и зона пламени" width="1205" height="1215" style="width:min(420px,100%)"><div class="label">Построение</div></div>
+      <div class="plate"><img src="svg/icon_app.svg" alt="Иконка приложения на тёмной подложке" width="1125" height="1135" style="width:min(300px,80%)"><div class="label">icon_app</div></div>
+    </div>
+    <div class="plate"><div class="sizes">
+      <figure><img src="png/icon_app_180.png" width="180" height="180" alt="180 px"><figcaption>180</figcaption></figure>
+      <figure><img src="png/icon_app_128.png" width="128" height="128" alt="128 px"><figcaption>128</figcaption></figure>
+      <figure><img src="png/icon_app_64.png" width="64" height="64" alt="64 px"><figcaption>64</figcaption></figure>
+      <figure><img src="png/icon_app_48.png" width="48" height="48" alt="48 px"><figcaption>48</figcaption></figure>
+      <figure><img src="png/icon_app_32.png" width="32" height="32" alt="32 px"><figcaption>32</figcaption></figure>
+      <figure><img src="png/icon_app_16.png" width="16" height="16" alt="16 px"><figcaption>16</figcaption></figure>
+    </div><div class="label">Размеры в пикселях, 1 : 1</div></div>
+  </div>
+</div></section>
+
+<section class="ch" id="color"><div class="wrap">
+  <div class="cap"><div class="num">04</div><h2>Цвет</h2>
+    <p>Пламя идёт от фуксии на кончиках через малину и коралл к янтарю и крему у основания. Надпись — тёплый крем, темнеющий книзу.</p>
+    <p>Основной фон знака — <strong>Ночь</strong>. Цветной логотип живёт на тёмном; на светлых фонах используется монохромная версия.</p></div>
+  <div class="stage"><div class="ramp" role="img" aria-label="Градиент пламени от фуксии к крему"></div><ul class="pal"><li class="sw"><span class="chip" style="background:#E81EE0"></span><b>Фуксия</b><code>#E81EE0</code>
+<small>RGB 232, 30, 224 · CMYK 0 87 3 9</small><em>кончики языков</em></li><li class="sw"><span class="chip" style="background:#F21C7C"></span><b>Малина</b><code>#F21C7C</code>
+<small>RGB 242, 28, 124 · CMYK 0 88 49 5</small><em>тело пламени</em></li><li class="sw"><span class="chip" style="background:#F7603E"></span><b>Коралл</b><code>#F7603E</code>
+<small>RGB 247, 96, 62 · CMYK 0 61 75 3</small><em>переход к основанию</em></li><li class="sw"><span class="chip" style="background:#FBC662"></span><b>Янтарь</b><code>#FBC662</code>
+<small>RGB 251, 198, 98 · CMYK 0 21 61 2</small><em>нижние языки</em></li><li class="sw"><span class="chip" style="background:#FBEAA4"></span><b>Крем</b><code>#FBEAA4</code>
+<small>RGB 251, 234, 164 · CMYK 0 7 35 2</small><em>основание, блики</em></li><li class="sw"><span class="chip" style="background:#F8CF88"></span><b>Буквы</b><code>#F8CF88</code>
+<small>RGB 248, 207, 136 · CMYK 0 17 45 3</small><em>надпись, сверху вниз до #E07C55</em></li><li class="sw"><span class="chip" style="background:#0B0710"></span><b>Ночь</b><code>#0B0710</code>
+<small>RGB 11, 7, 16 · CMYK 31 56 0 94</small><em>основной фон</em></li></ul></div>
+</div></section>
+
+<section class="ch" id="mono"><div class="wrap">
+  <div class="cap"><div class="num">05</div><h2>Монохром</h2>
+    <p>Одноцветная версия — для тиснения, гравировки, печати в один цвет, документов и светлых фонов.</p>
+    <p>Пламя в ней — упрощённый одноцветный силуэт из линий языков, звезда вырезана из чаши. Белая — на тёмном, чёрная — на светлом.</p></div>
+  <div class="stage tiles">
+    <div class="tile t-ink"><img class="lg" src="svg/logo_white.svg" alt="Белый логотип на тёмном" width="3695" height="1254"><img class="ic" src="svg/icon_white.svg" alt="Белая иконка" width="1125" height="1135"><span class="tl">Белый · на тёмном</span></div>
+    <div class="tile t-white"><img class="lg" src="svg/logo_black.svg" alt="Чёрный логотип на белом" width="3695" height="1254"><img class="ic" src="svg/icon_black.svg" alt="Чёрная иконка" width="1125" height="1135"><span class="tl">Чёрный · на белом</span></div>
+    <div class="tile t-rose"><img class="lg" src="svg/logo_white.svg" alt="Белый логотип на малиновом" width="3695" height="1254"><span class="tl" style="color:#FFD9E8">Белый · на фирменном цвете</span></div>
+    <div class="tile t-cream"><img class="lg" src="svg/logo_black.svg" alt="Чёрный логотип на кремовом" width="3695" height="1254"><span class="tl">Чёрный · на кремовом</span></div>
+  </div>
+  <div class="cap" style="margin-top:56px"><h3>Упрощённый монохром</h3>
+    <p>Пламя одной сплошной заливкой, в нём вырезана только звезда. Для мелких размеров, вышивки, штампа, вырезки из плёнки и случаев, где тонкие линии не пропечатаются.</p></div>
+  <div class="stage tiles">
+    <div class="tile t-ink"><img class="lg" src="svg/logo_white_solid.svg" alt="Упрощённый белый логотип на тёмном" width="3695" height="1254"><img class="ic" src="svg/icon_white_solid.svg" alt="Упрощённая белая иконка" width="1125" height="1135"><span class="tl">Упрощённый белый · на тёмном</span></div>
+    <div class="tile t-white"><img class="lg" src="svg/logo_black_solid.svg" alt="Упрощённый чёрный логотип на белом" width="3695" height="1254"><img class="ic" src="svg/icon_black_solid.svg" alt="Упрощённая чёрная иконка" width="1125" height="1135"><span class="tl">Упрощённый чёрный · на белом</span></div>
+  </div>
+</div></section>
+
+<section class="ch" id="ground"><div class="wrap">
+  <div class="cap"><div class="num">06</div><h2>Фоны</h2>
+    <p>Цветной логотип ставится на глубокие тёмные фоны: ночь, тёмный фиолет, чистый чёрный. Пламя светится сильнее всего на тёмном.</p>
+    <p>На белом и светлых фонах цветной логотип не используется — для них есть чёрный монохром.</p></div>
+  <div class="stage tiles">
+    <div class="tile t-ink"><img class="lg" src="svg/logo_color.svg" alt="Цветной логотип на фоне Ночь" width="3695" height="1254"><span class="tl">Ночь #0B0710</span></div>
+    <div class="tile t-violet"><img class="lg" src="svg/logo_color.svg" alt="Цветной логотип на тёмно-фиолетовом" width="3695" height="1254"><span class="tl">Тёмный фиолет #1E1030</span></div>
+    <div class="tile t-black"><img class="lg" src="svg/logo_color.svg" alt="Цветной логотип на чёрном" width="3695" height="1254"><span class="tl">Чёрный #000000</span></div>
+    <div class="tile t-ink" style="background:radial-gradient(60% 80% at 50% 40%, #3A1238, #0B0710 70%)"><img class="lg" src="svg/logo_color.svg" alt="Цветной логотип на тёмном градиенте" width="3695" height="1254"><span class="tl">Тёмный градиент с тёплым центром</span></div>
+  </div>
+</div></section>
+
+<section class="ch" id="min"><div class="wrap">
+  <div class="cap"><div class="num">07</div><h2>Минимальный размер</h2>
+    <p>Логотип — не меньше <strong>120 px</strong> в ширину на экране и <strong>30 мм</strong> в печати. Мельче звезда над «i» теряется.</p>
+    <p>Если места меньше, ставьте иконку: она работает от <strong>16 px</strong>. Монохром в печати — от 20 мм.</p></div>
+  <div class="stage mins">
+    <div class="plate deep"><img src="svg/logo_color.svg" alt="Логотип шириной 240 пикселей" width="240" height="81" style="width:240px"><span class="ruler">240 px</span>
+      <img src="svg/logo_color.svg" alt="Логотип шириной 120 пикселей" width="120" height="41" style="width:120px"><span class="ruler">120 px — минимум</span></div>
+    <div class="plate deep"><img src="png/icon_app_64.png" width="64" height="64" alt="Иконка 64 px"><span class="ruler">64 px</span>
+      <img src="png/icon_app_16.png" width="16" height="16" alt="Иконка 16 px"><span class="ruler">16 px — минимум</span></div>
+  </div>
+</div></section>
+
+<section class="ch" id="dont"><div class="wrap">
+  <div class="cap"><div class="num">08</div><h2>Как нельзя</h2>
+    <p>Знак не перерисовывают, не растягивают и не украшают. Любое изменение пропорций, цвета или окружения ломает узнаваемость.</p>
+    <p>Если ни одна версия не подходит к макету — меняйте макет, а не логотип.</p></div>
+  <div class="stage donts">
+    <div class="dn"><div class="v x-stretch"><img src="svg/logo_color.svg" alt="" width="3695" height="1254"></div><p>Растягивать и сжимать</p></div>
+    <div class="dn"><div class="v x-rotate"><img src="svg/logo_color.svg" alt="" width="3695" height="1254"></div><p>Поворачивать</p></div>
+    <div class="dn"><div class="v x-hue"><img src="svg/logo_color.svg" alt="" width="3695" height="1254"></div><p>Менять цвета пламени и букв</p></div>
+    <div class="dn"><div class="v x-white"><img src="svg/logo_color.svg" alt="" width="3695" height="1254"></div><p>Ставить цветной логотип на белый</p></div>
+    <div class="dn"><div class="v x-shadow"><img src="svg/logo_color.svg" alt="" width="3695" height="1254"></div><p>Добавлять тени и свечения</p></div>
+    <div class="dn"><div class="v x-busy"><img src="svg/logo_color.svg" alt="" width="3695" height="1254"></div><p>Ставить на пёстрый фон</p></div>
+  </div>
+</div></section>
+
+<section class="ch" id="motion"><div class="wrap">
+  <div class="cap"><div class="num">09</div><h2>Анимация</h2>
+    <p>Форма знака не меняется: контуры языков, звёзды и надпись стоят на месте. Внутри каждого языка снизу вверх плывут мягкие волны света и тени в цветах самого пламени — у основания янтарные и кремовые, к кончикам малиновые и фуксия.</p>
+    <p>Языки движутся с разной скоростью и в разной фазе, поэтому пламя не мигает целиком, а «течёт». Цикл — <strong>8 секунд</strong>, бесшовный.</p>
+    <p>Где использовать: заставки, загрузочные экраны, сайт, видео, презентации. В документах, печати и мелких размерах (меньше 64 px) — статичная версия.</p></div>
+  <div class="stage tiles">
+    <div class="tile t-ink" style="grid-column:1/-1;min-height:340px"><img class="lg motion" src="svg/logo_color_anim.svg" data-still="svg/logo_color.svg" alt="Анимированный логотип" width="3695" height="1254"><span class="tl">Логотип · анимация</span></div>
+    <div class="tile t-ink"><img class="motion" style="width:200px" src="svg/icon_app_anim.svg" data-still="svg/icon_app.svg" alt="Анимированная иконка приложения" width="1125" height="1135"><span class="tl">Иконка · анимация</span></div>
+    <div class="tile t-violet"><img class="motion" style="width:130px" src="svg/mark_color_anim.svg" data-still="svg/mark_color.svg" alt="Анимированный знак" width="503" height="786"><span class="tl">Знак · анимация</span></div>
+  </div>
+</div></section>
+<script>if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('img.motion').forEach(i=>i.src=i.dataset.still);</script>
+
+<section class="ch" id="files"><div class="wrap">
+  <div class="cap"><div class="num">10</div><h2>Файлы</h2>
+    <p>Все SVG — чистый вектор: кривые и градиенты, без растра и эффектов. Для печати и вёрстки берите SVG, PNG — для быстрых превью.</p>
+    <p>Файлы лежат в архиве логобука рядом с этой страницей.</p></div>
+  <div class="stage"><ul class="files"><li><code>svg/logo_color.svg</code><span>Логотип, цвет</span></li><li><code>svg/logo_white.svg</code><span>Логотип, белый</span></li><li><code>svg/logo_black.svg</code><span>Логотип, чёрный</span></li><li><code>svg/logo_white_solid.svg</code><span>Логотип, упрощённый белый</span></li><li><code>svg/logo_black_solid.svg</code><span>Логотип, упрощённый чёрный</span></li><li><code>svg/icon_color.svg</code><span>Иконка, цвет</span></li><li><code>svg/icon_app.svg</code><span>Иконка приложения на подложке</span></li><li><code>svg/icon_white.svg</code><span>Иконка, белая</span></li><li><code>svg/icon_black.svg</code><span>Иконка, чёрная</span></li><li><code>svg/icon_white_solid.svg</code><span>Иконка, упрощённая белая</span></li><li><code>svg/icon_black_solid.svg</code><span>Иконка, упрощённая чёрная</span></li><li><code>svg/mark_color.svg</code><span>Знак без надписи</span></li><li><code>svg/logo_color_guides.svg</code><span>Логотип с линиями звёзд</span></li><li><code>svg/logo_color_anim.svg</code><span>Логотип, анимация (SVG, цикл 8 с)</span></li><li><code>svg/icon_app_anim.svg</code><span>Иконка приложения, анимация</span></li><li><code>svg/icon_color_anim.svg</code><span>Иконка, анимация</span></li><li><code>svg/mark_color_anim.svg</code><span>Знак, анимация</span></li><li><code>preview/*_anim.gif</code><span>GIF-превью анимации на тёмном</span></li><li><code>png/…</code><span>PNG 3000 px: прозрачные, на тёмном, на белом</span></li><li><code>png/icon_app_1024…16.png</code><span>Иконка приложения 1024, 512, 256, 192, 180, 128, 64, 48, 32, 16</span></li></ul></div>
+</div></section>
+
+<footer><div class="wrap"><img src="svg/logo_white.svg" alt="Illuminator" width="3695" height="1254"><span>Логобук Illuminator · v4 · 11.11.2026</span></div></footer>
+</body>
+</html>
